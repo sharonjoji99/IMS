@@ -137,12 +137,25 @@ public class AppController {
 		}
 	 
 	 @PostMapping("/signup")
-	 public void signupFormPost(signupForm user,Model model){
+	 public String signupFormPost(signupForm user,Model model){
 		   model.addAttribute("user",user);
-		   String name=user.getUsername();
+		   String usr=user.getUsername();
 	       String pwd=user.getPassword();
-	       
-	       System.out.println("Entered detail: usr= " + name + "  pwd="+pwd);
+	       int age=user.getAge();
+	       String name=user.getName();
+	    	String email=user.getEmail();
+	    	String gender=user.getGender();
+	       System.out.println("Entered detail: usr= " + usr + "  pwd="+pwd + "  age="+age+ "  name="+name+ "  email="+email+ "  gender="+gender);
+	       try {
+			insertToDb.signupDetails(usr,pwd,age,name,email,gender);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	       return "form";
 	 }
 		 
 	 }
